@@ -101,7 +101,7 @@ lighthouse bn \
   --datadir ~/.lighthouse \
   --http \
   --execution-endpoint http://localhost:8551 \
-  --execution-jwt ~/.reth/jwt.hex \
+  --execution-jwt ~/.reth/jwt.hex
 ```
 
 Execute Validator Client:
@@ -110,5 +110,5 @@ Execute Validator Client:
 lighthouse vc \
   --network mainnet \
   --datadir ~/.lighthouse \
-  --http \
+  --http
 ```
