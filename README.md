@@ -40,7 +40,7 @@ source ~/.bashrc
 foundryup
 ```
 
-Init submodules:
+### Init submodules
 
 ```bash
 git submodule update --init
