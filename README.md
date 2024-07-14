@@ -32,7 +32,6 @@ git submodule update --init
 With Rust and the dependencies installed, you're ready to build Reth. First, clone the repository:
 
 ```bash
-git clone https://github.com/paradigmxyz/reth
 cd reth
 ```
 
