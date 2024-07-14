@@ -29,80 +29,35 @@ git submodule update --init
 
 ## Build Reth
 
-With Rust and the dependencies installed, you're ready to build Reth. First, clone the repository:
-
-```bash
-cd reth
-```
-
-Then, install Reth into your `PATH` directly via:
-
-```bash
-cargo install --locked --path bin/reth --bin reth
-```
-
-
-## Update Reth
-
-You can update Reth to a specific version by running the commands below.
-
-The `reth` directory will be the location you cloned reth to during the installation process.
-
-`${VERSION}` will be the version you wish to build in the format `vX.X.X`.
+With Rust and the dependencies installed, you're ready to build Reth.
 
 ```bash
 cd reth
 git fetch
-git checkout ${VERSION}
-cargo build --release
+git checkout main
+cargo install --locked --path bin/reth --bin reth
 ```
 
 # Consensus Client
 
 ## Build Lighthouse
 
-Once you have Rust and the build dependencies you're ready to build Lighthouse:
+Once you have Rust and the build dependencies installed, you're ready to build Lighthouse.
 
-```
+```bash
 cd lighthouse
-```
-
-```
-git checkout stable
-```
-
-```
-make
-```
-
-## Update Lighthouse
-
-You can update Lighthouse to a specific version by running the commands below. The `lighthouse`
-directory will be the location you cloned Lighthouse to during the installation process.
-`${VERSION}` will be the version you wish to build in the format `vX.X.X`.
-
-```
-cd lighthouse
-```
-
-```
 git fetch
-```
-
-```
-git checkout ${VERSION}
-```
-
-```
+git checkout stable
 make
 ```
+
 
 ## Configure Lighthouse
 
 
 ### Import Validator Keys:
 
-```
+```bash
 lighthouse \
   --network mainnet \
   --datadir ~/crypto/.lighthouse 
@@ -110,19 +65,14 @@ lighthouse \
   --directory ~/crypto/validator_keys
 ```
 
-#### Setting the fee recipient in the `validator_definitions.yml`
+### Setting the fee recipient in the `validator_definitions.yml`
 
 Users can set the fee recipient in `validator_definitions.yml` with the `suggested_fee_recipient`
 key. This option is recommended for most users, where each validator has a fixed fee recipient.
 
 Below is an example of the validator_definitions.yml with `suggested_fee_recipient` values:
 
-```
-- enabled: true
-  voting_public_key: "0x87a580d31d7bc69069b55f5a01995a610dd391a26dc9e36e81057a17211983a79266800ab8531f21f1083d7d84085007"
-  type: local_keystore
-  voting_keystore_path: /home/paul/.lighthouse/validators/0x87a580d31d7bc69069b55f5a01995a610dd391a26dc9e36e81057a17211983a79266800ab8531f21f1083d7d84085007/voting-keystore.json
-  voting_keystore_password_path: /home/paul/.lighthouse/secrets/0x87a580d31d7bc69069b55f5a01995a610dd391a26dc9e36e81057a17211983a79266800ab8531f21f1083d7d84085007
+```bash
   suggested_fee_recipient: "0x6cc8dcbca744a6e4ffedb98e1d0df903b10abd21"
 ```
 
@@ -161,5 +111,4 @@ lighthouse validator \
   --network mainnet \
   --datadir ~/crypto/.lighthouse \
   --http \
-  --builder-proposals
 ```
