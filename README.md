@@ -96,7 +96,7 @@ Execute Beacon Node:
 
 ```
 lighthouse bn \
-  --checkpoint-sync-url https://mainnet.checkpoint.sigp.io \
+  --checkpoint-sync-url https://beaconstate.ethstaker.cc \
   --network mainnet \
   --datadir ~/.lighthouse \
   --http \
