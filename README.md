@@ -86,7 +86,7 @@ Below is an example of the validator_definitions.yml with `suggested_fee_recipie
 Now, to start the full node, run:
 
 ```bash
-reth node --full --datadir ~/.reth --http --http.api --ws --ws.api
+reth node --full --datadir ~/.reth --http --http.api all
 ```
 
 
