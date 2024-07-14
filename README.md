@@ -98,7 +98,7 @@ reth node --full --datadir ~/.reth --http --http.api all
 
 ### Run the Lighthouse Node
 
-Execute Beacon Node:
+Run Beacon Node:
 
 ```
 lighthouse bn \
@@ -110,7 +110,7 @@ lighthouse bn \
   --execution-jwt ~/.reth/jwt.hex
 ```
 
-Execute Validator Client:
+Run Validator Client:
 
 ```
 lighthouse vc \
