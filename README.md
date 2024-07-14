@@ -42,6 +42,8 @@ foundryup
 
 ### Init submodules
 
+Last, but not least, let's get **reth** and **lighthouse** as git submodules.
+
 ```bash
 git submodule update --init
 ```
