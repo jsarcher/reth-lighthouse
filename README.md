@@ -4,7 +4,7 @@ The **reth-lighthouse** repository is an opinionated, rust-based, build-by-sourc
 
 In the future I might add more infrastructure to the repository that works with this setup.
 
-# Dependencies
+## Dependencies
 
 First, **install Rust** using [rustup](https://rustup.rs/)：
 
@@ -31,9 +31,9 @@ Init submodules:
 git submodule update --init
 ```
 
-# Execution Client
+## Execution Client
 
-## Build Reth
+### Build Reth
 
 With Rust and the dependencies installed, you're ready to build Reth.
 
@@ -44,9 +44,9 @@ git checkout main
 cargo install --locked --path bin/reth --bin reth
 ```
 
-# Consensus Client
+## Consensus Client
 
-## Build Lighthouse
+### Build Lighthouse
 
 Once you have Rust and the build dependencies installed, you're ready to build Lighthouse.
 
@@ -58,10 +58,10 @@ make
 ```
 
 
-## Configure Lighthouse
+### Configure Lighthouse
 
 
-### Import Validator Keys:
+#### Import Validator Keys:
 
 ```bash
 lighthouse \
@@ -71,7 +71,7 @@ lighthouse \
   --directory ~/crypto/validator_keys
 ```
 
-### Setting the fee recipient in the `validator_definitions.yml`
+#### Setting the fee recipient in the `validator_definitions.yml`
 
 Users can set the fee recipient in `validator_definitions.yml` with the `suggested_fee_recipient`
 key. This option is recommended for most users, where each validator has a fixed fee recipient.
@@ -84,10 +84,10 @@ Below is an example of the validator_definitions.yml with `suggested_fee_recipie
 
 
 
-# Run reth-lighthouse
+## Run reth-lighthouse
 
 
-## Run the Reth Node
+### Run the Reth Node
 
 Now, to start the full node, run:
 
@@ -96,7 +96,7 @@ reth node --full --datadir ~/.reth --http --http.api all
 ```
 
 
-## Run the Lighthouse Node
+### Run the Lighthouse Node
 
 Execute Beacon Node:
 
