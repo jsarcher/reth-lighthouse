@@ -6,6 +6,16 @@ In the future I might add more infrastructure to the repository that works with 
 
 ## Dependencies
 
+### Ubuntu Packages
+
+Install the following packages:
+
+```bash
+sudo apt update && sudo apt install -y git build-essential gcc g++ make cmake pkg-config llvm-dev libclang-dev clang curl openssh-server vim screen htop 
+```
+
+
+### Rust 
 First, **install Rust** using [rustup](https://rustup.rs/)：
 
 ```bash
@@ -18,12 +28,17 @@ rustup update stable
 ```
 
 
-Install the following packages:
+### Foundry
+
+Foundry is a smart contract development toolchain. Foundry manages your dependencies, compiles your project, runs tests, deploys, and lets you interact with the chain from the command-line and via Solidity scripts.
+
+Install Foundry:
 
 ```bash
-sudo apt update && sudo apt install -y git build-essential gcc g++ make cmake pkg-config llvm-dev libclang-dev clang curl openssh-server vim screen htop 
+curl -L https://foundry.paradigm.xyz | bash
+source ~/.bashrc
+foundryup
 ```
-
 
 Init submodules:
 
