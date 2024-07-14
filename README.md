@@ -1,4 +1,10 @@
-## Dependencies
+# Reth-Lighthouse
+
+The **reth-lighthouse** repository is an opinionated, rust-based, build-by-source Ethereum node installation guide for Ubuntu 24.04 LTS. This is a guide for people that resonate with the idea of building their Ethereum node from source and appreciate the efficient rust-based clients Reth and Lighthouse. This repository acts as a one-stop shop for your Ethereum node, condensed all required information in a single README.
+
+In the future I might add more infrastructure to the repository that works with this setup.
+
+# Dependencies
 
 First, **install Rust** using [rustup](https://rustup.rs/)：
 
