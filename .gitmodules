@@ -1,0 +1,6 @@
+[submodule "reth"]
+	path = reth
+	url = https://github.com/paradigmxyz/reth
+[submodule "lighthouse"]
+	path = lighthouse
+	url = https://github.com/sigp/lighthouse
