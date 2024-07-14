@@ -1,117 +1,166 @@
-Ubuntu Packages:
-----------------
+## Dependencies
 
-sudo apt install -y git gcc g++ make cmake pkg-config llvm-dev libclang-dev clang curl openssh-server vim screen htop 
+First, **install Rust** using [rustup](https://rustup.rs/)：
 
-
-Rust:
------
-
-# Install rustup
+```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
 
-# Update to latest stable version of rust
+Update to latest stable version of rust:
+```bash
 rustup update stable
+```
 
 
-Execution Engine:
--------------
+Install the following packages:
 
-Version:
-
-geth version
-
-
-Install:
-
-sudo add-apt-repository -y ppa:ethereum/ethereum
-sudo apt-get update
-sudo apt-get install ethereum
+```bash
+sudo apt update && sudo apt install -y git build-essential gcc g++ make cmake pkg-config llvm-dev libclang-dev clang curl openssh-server vim screen htop 
+```
 
 
-Update:
+Init submodules:
 
-sudo apt-get update
-sudo apt-get install ethereum
-sudo apt-get upgrade geth
+```bash
+git submodule update --init
+```
+
+# Execution Client
+
+## Build Reth
+
+With Rust and the dependencies installed, you're ready to build Reth. First, clone the repository:
+
+```bash
+git clone https://github.com/paradigmxyz/reth
+cd reth
+```
+
+Then, install Reth into your `PATH` directly via:
+
+```bash
+cargo install --locked --path bin/reth --bin reth
+```
 
 
-Execute:
+## Update Reth
 
-geth --http --datadir ~/crypto/.ethereum/ --datadir.ancient /media/julian/ethereum/chaindata/ancient/ --authrpc.addr localhost --authrpc.port 8551 --authrpc.vhosts localhost
+You can update Reth to a specific version by running the commands below.
 
-Consensus Engine:
--------------
+The `reth` directory will be the location you cloned reth to during the installation process.
 
-Build:
+`${VERSION}` will be the version you wish to build in the format `vX.X.X`.
 
-git clone https://github.com/sigp/lighthouse.git
-cd lighthouse
-git checkout stable
-make
-
-
-Update:
-
-cd lighthouse
+```bash
+cd reth
 git fetch
+git checkout ${VERSION}
+cargo build --release
+```
+
+# Consensus Client
+
+## Build Lighthouse
+
+Once you have Rust and the build dependencies you're ready to build Lighthouse:
+
+```
+cd lighthouse
+```
+
+```
 git checkout stable
+```
+
+```
 make
+```
+
+## Update Lighthouse
+
+You can update Lighthouse to a specific version by running the commands below. The `lighthouse`
+directory will be the location you cloned Lighthouse to during the installation process.
+`${VERSION}` will be the version you wish to build in the format `vX.X.X`.
+
+```
+cd lighthouse
+```
+
+```
+git fetch
+```
+
+```
+git checkout ${VERSION}
+```
+
+```
+make
+```
+
+## Configure Lighthouse
 
 
-Import Validator Keys:
+### Import Validator Keys:
 
+```
 lighthouse \
   --network mainnet \
   --datadir ~/crypto/.lighthouse 
   account validator import \
   --directory ~/crypto/validator_keys
+```
 
+#### Setting the fee recipient in the `validator_definitions.yml`
+
+Users can set the fee recipient in `validator_definitions.yml` with the `suggested_fee_recipient`
+key. This option is recommended for most users, where each validator has a fixed fee recipient.
+
+Below is an example of the validator_definitions.yml with `suggested_fee_recipient` values:
+
+```
+- enabled: true
+  voting_public_key: "0x87a580d31d7bc69069b55f5a01995a610dd391a26dc9e36e81057a17211983a79266800ab8531f21f1083d7d84085007"
+  type: local_keystore
+  voting_keystore_path: /home/paul/.lighthouse/validators/0x87a580d31d7bc69069b55f5a01995a610dd391a26dc9e36e81057a17211983a79266800ab8531f21f1083d7d84085007/voting-keystore.json
+  voting_keystore_password_path: /home/paul/.lighthouse/secrets/0x87a580d31d7bc69069b55f5a01995a610dd391a26dc9e36e81057a17211983a79266800ab8531f21f1083d7d84085007
+  suggested_fee_recipient: "0x6cc8dcbca744a6e4ffedb98e1d0df903b10abd21"
+```
+
+
+
+# Run reth-lighthouse
+
+
+## Run the Reth Node
+
+Now, to start the full node, run:
+
+```bash
+reth node --full --http --ws --http.api --ws.api
+```
+
+
+## Run the Lighthouse Node
 
 Execute Beacon Node:
 
-lighthouse \
+```
+lighthouse bn \
+  --checkpoint-sync-url https://mainnet.checkpoint.sigp.io \
   --network mainnet \
-  --datadir ~/crypto/.lighthouse beacon \
+  --datadir ~/crypto/.lighthouse \
   --http \
   --execution-endpoint http://localhost:8551 \
-  --execution-jwt ~/crypto/.ethereum/geth/jwtsecret \
-  --builder http://127.0.0.1:18550
+  --execution-jwt ~/.local/share/reth/jwt.hex \
+```
 
 Execute Validator Client:
 
-lighthouse \
+```
+lighthouse validator \
   --network mainnet \
-  --datadir ~/crypto/.lighthouse validator \
+  --datadir ~/crypto/.lighthouse \
   --http \
-  --graffiti "yusa.eth" \
-  --suggested-fee-recipient "0x0073245E2BF4f38400634D4bA7527bbD34bFc6ba" \
   --builder-proposals
-
-MEV-Boost:
------------------------
-
-vi /etc/systemd/system/mevboost.service
-
-sudo service mevboost status
-
-
-Mount SSD:
-------------------
-
-sudo mount /dev/sda1 /media/julian/ethereum/
-
-
-julian@ethereum:~$ date
-Fr 29. Sep 23:25:56 CEST 2023
-julian@ethereum:~$ df -h
-Filesystem      Size  Used Avail Use% Mounted on
-tmpfs           3,2G  2,2M  3,2G   1% /run
-/dev/nvme0n1p3  1,8T  1,3T  476G  73% /
-tmpfs            16G     0   16G   0% /dev/shm
-tmpfs           5,0M  4,0K  5,0M   1% /run/lock
-/dev/nvme0n1p2  512M  6,1M  506M   2% /boot/efi
-tmpfs           3,2G   72K  3,2G   1% /run/user/127
-tmpfs           3,2G   60K  3,2G   1% /run/user/1000
-/dev/sda1       916G  569G  301G  66% /media/julian/ethereum
-
+```
