@@ -60,7 +60,7 @@ make
 ```bash
 lighthouse \
   --network mainnet \
-  --datadir ~/crypto/.lighthouse 
+  --datadir ~/.lighthouse 
   account validator import \
   --directory ~/crypto/validator_keys
 ```
@@ -98,17 +98,17 @@ Execute Beacon Node:
 lighthouse bn \
   --checkpoint-sync-url https://mainnet.checkpoint.sigp.io \
   --network mainnet \
-  --datadir ~/crypto/.lighthouse \
+  --datadir ~/.lighthouse \
   --http \
   --execution-endpoint http://localhost:8551 \
-  --execution-jwt ~/.local/share/reth/jwt.hex \
+  --execution-jwt ~/.reth/jwt.hex \
 ```
 
 Execute Validator Client:
 
 ```
-lighthouse validator \
+lighthouse vc \
   --network mainnet \
-  --datadir ~/crypto/.lighthouse \
+  --datadir ~/.lighthouse \
   --http \
 ```
