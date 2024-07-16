@@ -1,5 +1,21 @@
+# Reth Lighthouse Node
+
+The **reth-lighthouse** repository is an opinionated, rust-based, build-by-source Ethereum node installation guide for Ubuntu 24.04 LTS. This is a guide for people that resonate with the idea of building their Ethereum node from source and appreciate the efficient rust-based clients Reth and Lighthouse. This repository acts as a one-stop shop for your Ethereum node, condensed all required information in a single README.
+
+In the future I might add more infrastructure to the repository that works with this setup.
+
 ## Dependencies
 
+### Ubuntu Packages
+
+Install the following packages:
+
+```bash
+sudo apt update && sudo apt install -y git build-essential gcc g++ make cmake pkg-config llvm-dev libclang-dev clang curl openssh-server vim screen htop 
+```
+
+
+### Rust 
 First, **install Rust** using [rustup](https://rustup.rs/)：
 
 ```bash
@@ -12,22 +28,29 @@ rustup update stable
 ```
 
 
-Install the following packages:
+### Foundry
+
+Foundry is a smart contract development toolchain. Foundry manages your dependencies, compiles your project, runs tests, deploys, and lets you interact with the chain from the command-line and via Solidity scripts.
+
+Install Foundry:
 
 ```bash
-sudo apt update && sudo apt install -y git build-essential gcc g++ make cmake pkg-config llvm-dev libclang-dev clang curl openssh-server vim screen htop 
+curl -L https://foundry.paradigm.xyz | bash
+source ~/.bashrc
+foundryup
 ```
 
+### Init submodules
 
-Init submodules:
+Last, but not least, let's get **reth** and **lighthouse** as git submodules.
 
 ```bash
 git submodule update --init
 ```
 
-# Execution Client
+## Execution Client
 
-## Build Reth
+### Build Reth
 
 With Rust and the dependencies installed, you're ready to build Reth.
 
@@ -38,9 +61,9 @@ git checkout main
 cargo install --locked --path bin/reth --bin reth
 ```
 
-# Consensus Client
+## Consensus Client
 
-## Build Lighthouse
+### Build Lighthouse
 
 Once you have Rust and the build dependencies installed, you're ready to build Lighthouse.
 
@@ -52,10 +75,10 @@ make
 ```
 
 
-## Configure Lighthouse
+### Configure Lighthouse
 
 
-### Import Validator Keys:
+#### Import Validator Keys:
 
 ```bash
 lighthouse \
@@ -65,7 +88,7 @@ lighthouse \
   --directory ~/crypto/validator_keys
 ```
 
-### Setting the fee recipient in the `validator_definitions.yml`
+#### Setting the fee recipient in the `validator_definitions.yml`
 
 Users can set the fee recipient in `validator_definitions.yml` with the `suggested_fee_recipient`
 key. This option is recommended for most users, where each validator has a fixed fee recipient.
@@ -78,10 +101,10 @@ Below is an example of the validator_definitions.yml with `suggested_fee_recipie
 
 
 
-# Run reth-lighthouse
+## Run reth-lighthouse
 
 
-## Run the Reth Node
+### Run the Reth Node
 
 Now, to start the full node, run:
 
@@ -90,9 +113,9 @@ reth node --full --datadir ~/.reth --http --http.api all
 ```
 
 
-## Run the Lighthouse Node
+### Run the Lighthouse Node
 
-Execute Beacon Node:
+Run Beacon Node:
 
 ```
 lighthouse bn \
@@ -104,7 +127,7 @@ lighthouse bn \
   --execution-jwt ~/.reth/jwt.hex
 ```
 
-Execute Validator Client:
+Run Validator Client:
 
 ```
 lighthouse vc \
